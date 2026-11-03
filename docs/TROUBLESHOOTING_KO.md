@@ -21,3 +21,7 @@
 
 현재 소스는 컴파일과 게임 실행 미검증입니다. 제보에는 버전과 비밀을 제거한 오류 정보만 포함하고,
 API 키·계정 암호·캐릭터 데이터·운영 로그 전체를 저장소에 올리지 마십시오.
+
+## Windows 설치 중 확인된 실제 오류
+
+`not my bot`, `Invalid security key`, `No such character`, `.llmbot stats`의 errors 증가, `certificate verify failed (SSL routines)` 및 `Logger.root=2`에서 경고 로그가 보이지 않는 문제의 실제 해결 절차는 **[Windows CM 초기 등록 및 문제 해결](WINDOWS_CM_SETUP_KO.md)**에 정리했습니다. 인증서 검증을 해제하지 마세요.
