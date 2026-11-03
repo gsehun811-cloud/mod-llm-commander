@@ -98,3 +98,7 @@ remove는 roster 행만 지우며 캐릭터는 삭제하지 않습니다. 레이
 기존 DB 테이블은 보존하며 삭제용 SQL은 제공하지 않습니다.
 현재 소스는 빌드, 로그인/로그아웃, 명령 실행, 비용 제한, 서버 종료 후 재실행 검증이 남아 있습니다.
 검증은 운영 DB와 분리한 테스트 환경에서 수행하십시오.
+
+## 실전 Windows 초기 등록 가이드
+
+계정 연결(Link), `.playerbots bot add Cm`, `.llmbot add Cm adventurer`, OpenAI TLS 인증서 번들 및 오류 로그까지 실제 Windows 시험 서버에서 확인한 절차는 **[Windows CM 초기 등록 및 문제 해결](WINDOWS_CM_SETUP_KO.md)**을 참조하세요. 해당 사례의 계정 ID와 경로는 예시이므로 환경별로 변경해야 합니다.
