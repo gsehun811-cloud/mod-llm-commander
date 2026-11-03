@@ -1,0 +1,405 @@
+{
+  "scope": "source inspection only; no compilation or runtime validation",
+  "command_count": 10,
+  "commands": [
+    [
+      "list",
+      "HandleLlmBotList",
+      "rbac::RBAC_PERM_COMMAND_GM",
+      "Console::No"
+    ],
+    [
+      "add",
+      "HandleLlmBotAdd",
+      "rbac::RBAC_PERM_COMMAND_GM",
+      "Console::No"
+    ],
+    [
+      "remove",
+      "HandleLlmBotRemove",
+      "rbac::RBAC_PERM_COMMAND_GM",
+      "Console::No"
+    ],
+    [
+      "persona",
+      "HandleLlmBotPersona",
+      "rbac::RBAC_PERM_COMMAND_GM",
+      "Console::No"
+    ],
+    [
+      "reload",
+      "HandleLlmBotReload",
+      "rbac::RBAC_PERM_COMMAND_GM",
+      "Console::No"
+    ],
+    [
+      "stats",
+      "HandleLlmBotStats",
+      "rbac::RBAC_PERM_COMMAND_GM",
+      "Console::No"
+    ],
+    [
+      "say",
+      "HandleLlmBotSay",
+      "rbac::RBAC_PERM_COMMAND_GM",
+      "Console::No"
+    ],
+    [
+      "goal",
+      "HandleLlmBotGoal",
+      "rbac::RBAC_PERM_COMMAND_GM",
+      "Console::No"
+    ],
+    [
+      "pause",
+      "HandleLlmBotPause",
+      "rbac::RBAC_PERM_COMMAND_GM",
+      "Console::No"
+    ],
+    [
+      "resume",
+      "HandleLlmBotResume",
+      "rbac::RBAC_PERM_COMMAND_GM",
+      "Console::No"
+    ]
+  ],
+  "command_roots": [
+    "llmbot"
+  ],
+  "additional_game_commands_or_aliases": [],
+  "command_scripts": [
+    [
+      "src/Script/CommanderLlmBotsScript.cpp",
+      "LlmCommanderCommandScript"
+    ]
+  ],
+  "handler_signatures": [
+    "HandleLlmBotList(ChatHandler* handler)",
+    "HandleLlmBotAdd(ChatHandler* handler, std::string const& name, Optional<std::string> persona)",
+    "HandleLlmBotRemove(ChatHandler* handler, std::string const& name)",
+    "HandleLlmBotPersona(ChatHandler* handler, std::string const& name, std::string const& persona)",
+    "HandleLlmBotReload(ChatHandler* handler)",
+    "HandleLlmBotStats(ChatHandler* handler)",
+    "HandleLlmBotSay(ChatHandler* handler, std::string const& name, std::vector<std::string> promptWords)",
+    "HandleLlmBotGoal(ChatHandler* handler, std::string const& name)",
+    "HandleLlmBotPause(ChatHandler* handler)",
+    "HandleLlmBotResume(ChatHandler* handler)"
+  ],
+  "backend_comparison": "CmdAdd/Remove/Persona/Stats/Say/Goal equal after DB adapter naming; CmdPause retains safety guards",
+  "agenda_policy": "ordinary bot strategy changes blocked; original Commander manual goal retained",
+  "config_key_count": 25,
+  "config_suffixes": [
+    "Enable",
+    "Provider",
+    "Openai.Endpoint",
+    "Openai.ApiKey",
+    "Openai.ModelFast",
+    "Openai.ModelThink",
+    "Openai.TimeoutMs",
+    "Foundry.Endpoint",
+    "Foundry.ApiKey",
+    "Foundry.DeploymentFast",
+    "Foundry.DeploymentThink",
+    "Foundry.TimeoutMs",
+    "Mock.FailChance",
+    "WorkerThreads",
+    "MaxCallsPerMinute",
+    "MaxTokensPerHour",
+    "MaxRosterSize",
+    "BotAccount",
+    "Commander.Name",
+    "Commander.AccountId",
+    "Social.CooldownSec",
+    "Plan.IntervalSec",
+    "Conversation.MaxTurns",
+    "Chronicler.Name",
+    "Chronicler.DigestSec"
+  ],
+  "tool_count": 16,
+  "tools": [
+    "get_character_sheet",
+    "get_equipped_items",
+    "get_bag_items",
+    "get_quest_log",
+    "get_nearby_players",
+    "get_group_members",
+    "get_chat_history",
+    "get_server_status",
+    "playerbot_command",
+    "find_playerbot",
+    "join_playerbot_to_group",
+    "teleport_owner_to_playerbot",
+    "teleport_owner_to_city",
+    "set_raid_roles",
+    "list_raid_roles",
+    "prepare_raid_character"
+  ],
+  "files": [
+    {
+      "original": "Bots/ChroniclerBot.cpp",
+      "independent": "src/Bots/CommanderChroniclerBot.cpp",
+      "original_sha256": "54a4bdabfee6931249f01b4c425ca15137bba3354a9756edb8982b684ac92da3",
+      "normalized_diff_lines": 8,
+      "implementation_identical_after_naming": false
+    },
+    {
+      "original": "Bots/ChroniclerBot.h",
+      "independent": "src/Bots/CommanderChroniclerBot.h",
+      "original_sha256": "ea31c8fda64abfb3b91c9a06af97a7a54ae1ecdac4967e7735a165d36567e504",
+      "normalized_diff_lines": 9,
+      "implementation_identical_after_naming": false
+    },
+    {
+      "original": "Bots/LlmBotBrain.cpp",
+      "independent": "src/Bots/CommanderLlmBotBrain.cpp",
+      "original_sha256": "afeb02aa26771da012a28607677a847746510521491ca90655c8ad674fefbedd",
+      "normalized_diff_lines": 78,
+      "implementation_identical_after_naming": false
+    },
+    {
+      "original": "Bots/LlmBotBrain.h",
+      "independent": "src/Bots/CommanderLlmBotBrain.h",
+      "original_sha256": "c152f213b85d1ce7d067626ead281fd47493331648269fafba7bc89d7edccb85",
+      "normalized_diff_lines": 31,
+      "implementation_identical_after_naming": false
+    },
+    {
+      "original": "Bots/LlmBotRegistry.cpp",
+      "independent": "src/Bots/CommanderLlmBotRegistry.cpp",
+      "original_sha256": "37a356c450d9fe442ff4c91d5bc53a246d88475188b3ccbd7a38d94b794cd73a",
+      "normalized_diff_lines": 4,
+      "implementation_identical_after_naming": true
+    },
+    {
+      "original": "Bots/LlmBotRegistry.h",
+      "independent": "src/Bots/CommanderLlmBotRegistry.h",
+      "original_sha256": "2151513486c0aec5183ba53f9a3b286507dfc376c9710926b3215dc93a7293d2",
+      "normalized_diff_lines": 9,
+      "implementation_identical_after_naming": false
+    },
+    {
+      "original": "Bots/LlmChatLog.cpp",
+      "independent": "src/Bots/CommanderLlmChatLog.cpp",
+      "original_sha256": "b7d3b3894c7e8ec3bf5b9c9bd8ce3ad7fa5f8e9fb21df971ba2f0e0c49afbe6e",
+      "normalized_diff_lines": 4,
+      "implementation_identical_after_naming": true
+    },
+    {
+      "original": "Bots/LlmChatLog.h",
+      "independent": "src/Bots/CommanderLlmChatLog.h",
+      "original_sha256": "43e1549a407db117fa6f4e89368083131ac1e3ee368d88c7279119c99ff8af8c",
+      "normalized_diff_lines": 9,
+      "implementation_identical_after_naming": false
+    },
+    {
+      "original": "Bots/LlmConversation.cpp",
+      "independent": "src/Bots/CommanderLlmConversation.cpp",
+      "original_sha256": "55be9fb3bdd70e09a01957e93ceb1818d56820f670cd90aca4c5bb72b0536c47",
+      "normalized_diff_lines": 12,
+      "implementation_identical_after_naming": true
+    },
+    {
+      "original": "Bots/LlmConversation.h",
+      "independent": "src/Bots/CommanderLlmConversation.h",
+      "original_sha256": "126be1a066227c0a33c34d56474a187f8587b7091cc325c547da1bae2130ac26",
+      "normalized_diff_lines": 9,
+      "implementation_identical_after_naming": false
+    },
+    {
+      "original": "Bots/LlmEventBus.cpp",
+      "independent": "src/Bots/CommanderLlmEventBus.cpp",
+      "original_sha256": "351350702c461343d3915f1ae08843f8e698d1b1abd379c53086b506b0c18eed",
+      "normalized_diff_lines": 10,
+      "implementation_identical_after_naming": false
+    },
+    {
+      "original": "Bots/LlmEventBus.h",
+      "independent": "src/Bots/CommanderLlmEventBus.h",
+      "original_sha256": "d0e89a01c88e41a30b7d91406a76f4dba3cd6d37eacb31ba3c86a40583088473",
+      "normalized_diff_lines": 9,
+      "implementation_identical_after_naming": false
+    },
+    {
+      "original": "Bots/LlmToolbox.cpp",
+      "independent": "src/Bots/CommanderLlmToolbox.cpp",
+      "original_sha256": "141ec16b1594e4456633122ca378108d8e97092a9e84bba5e9fcac0fe8497aa6",
+      "normalized_diff_lines": 69,
+      "implementation_identical_after_naming": false
+    },
+    {
+      "original": "Bots/LlmToolbox.h",
+      "independent": "src/Bots/CommanderLlmToolbox.h",
+      "original_sha256": "6ccb1c7dd86a2a225822aa523de6bead3db1cb3948813cf1ea755f17c9e54eb9",
+      "normalized_diff_lines": 17,
+      "implementation_identical_after_naming": false
+    },
+    {
+      "original": "Bots/PromptBuilder.cpp",
+      "independent": "src/Bots/CommanderPromptBuilder.cpp",
+      "original_sha256": "7d57145b631a2873dc6872581e080a4c77f96e29db24c53010dde46fd1ee18cc",
+      "normalized_diff_lines": 4,
+      "implementation_identical_after_naming": true
+    },
+    {
+      "original": "Bots/PromptBuilder.h",
+      "independent": "src/Bots/CommanderPromptBuilder.h",
+      "original_sha256": "268df0e026cb1dc2ff8b5d413df21287e819f52c605ec2e3b40e31d1f92247bc",
+      "normalized_diff_lines": 9,
+      "implementation_identical_after_naming": false
+    },
+    {
+      "original": "Llm/FoundryProvider.cpp",
+      "independent": "src/Llm/CommanderFoundryProvider.cpp",
+      "original_sha256": "a29e00bc0c779a1bf3f8f2d367b1908327d52727ac585e4bb487cedc60fee6fe",
+      "normalized_diff_lines": 4,
+      "implementation_identical_after_naming": true
+    },
+    {
+      "original": "Llm/FoundryProvider.h",
+      "independent": "src/Llm/CommanderFoundryProvider.h",
+      "original_sha256": "ab18d3ec35342d9ad070e1a84cdb888c93719e2ad57e5ab7fd75fe1ff8f71bce",
+      "normalized_diff_lines": 9,
+      "implementation_identical_after_naming": false
+    },
+    {
+      "original": "Llm/HttpsClient.cpp",
+      "independent": "src/Llm/CommanderHttpsClient.cpp",
+      "original_sha256": "d605877884be3c67d04f98a1625d50ca90fa3c575f2633c3b7b2dac0210257fb",
+      "normalized_diff_lines": 170,
+      "implementation_identical_after_naming": false
+    },
+    {
+      "original": "Llm/HttpsClient.h",
+      "independent": "src/Llm/CommanderHttpsClient.h",
+      "original_sha256": "ff07c11b237a225c7bb5b8d171509830e24ce0410be8c2770c960597e1499c3a",
+      "normalized_diff_lines": 9,
+      "implementation_identical_after_naming": false
+    },
+    {
+      "original": "Llm/LlmBudget.cpp",
+      "independent": "src/Llm/CommanderLlmBudget.cpp",
+      "original_sha256": "41e8b659c1c2262dcd8dca0d557f018bdbff89275f287dbe3de2734dec760081",
+      "normalized_diff_lines": 25,
+      "implementation_identical_after_naming": false
+    },
+    {
+      "original": "Llm/LlmBudget.h",
+      "independent": "src/Llm/CommanderLlmBudget.h",
+      "original_sha256": "a3749a8c3d175618ff53a1140f1f77186d76b4c09061f587de2f7f21e8b8bbab",
+      "normalized_diff_lines": 16,
+      "implementation_identical_after_naming": false
+    },
+    {
+      "original": "Llm/LlmClient.cpp",
+      "independent": "src/Llm/CommanderLlmClient.cpp",
+      "original_sha256": "ac00a5a1591de19eda25dd2558f3a0675f6ffe0684fdcf691ecf2c4d1460fb4a",
+      "normalized_diff_lines": 45,
+      "implementation_identical_after_naming": false
+    },
+    {
+      "original": "Llm/LlmClient.h",
+      "independent": "src/Llm/CommanderLlmClient.h",
+      "original_sha256": "e93cc8fe06d6c9b61458836204385e3d0387c321eb587590b41a1551cf2d501e",
+      "normalized_diff_lines": 15,
+      "implementation_identical_after_naming": false
+    },
+    {
+      "original": "Llm/LlmProvider.cpp",
+      "independent": "src/Llm/CommanderLlmProvider.cpp",
+      "original_sha256": "dea8d2ae2a4078c95043c7a16120915499ce3babeed02726edee8283339bb0d5",
+      "normalized_diff_lines": 4,
+      "implementation_identical_after_naming": true
+    },
+    {
+      "original": "Llm/LlmProvider.h",
+      "independent": "src/Llm/CommanderLlmProvider.h",
+      "original_sha256": "addb28648b9d3d174e0748cb03fc1de980ac80518c1c6ec44d282216a75113a6",
+      "normalized_diff_lines": 9,
+      "implementation_identical_after_naming": false
+    },
+    {
+      "original": "Llm/LlmSchema.cpp",
+      "independent": "src/Llm/CommanderLlmSchema.cpp",
+      "original_sha256": "b0d9f39ae02fff378159950ef12e767bfdaceaf3554ecd68e4730a39da1795a9",
+      "normalized_diff_lines": 4,
+      "implementation_identical_after_naming": true
+    },
+    {
+      "original": "Llm/LlmSchema.h",
+      "independent": "src/Llm/CommanderLlmSchema.h",
+      "original_sha256": "dda10d4861b49ba691fa58cdc7779aafbcfffcc05f3f108f21935782cb565396",
+      "normalized_diff_lines": 9,
+      "implementation_identical_after_naming": false
+    },
+    {
+      "original": "Llm/LlmTypes.h",
+      "independent": "src/Llm/CommanderLlmTypes.h",
+      "original_sha256": "b6d6557cd9799923074fad932dc2d1622b31fc46f9d2b939c0f07331f8b4af3c",
+      "normalized_diff_lines": 11,
+      "implementation_identical_after_naming": false
+    },
+    {
+      "original": "Llm/MockProvider.cpp",
+      "independent": "src/Llm/CommanderMockProvider.cpp",
+      "original_sha256": "0bbf5d4509b43b6b17cf817efd1a3c3b989f685e5c32c2753b497e5d26843fda",
+      "normalized_diff_lines": 4,
+      "implementation_identical_after_naming": true
+    },
+    {
+      "original": "Llm/MockProvider.h",
+      "independent": "src/Llm/CommanderMockProvider.h",
+      "original_sha256": "771c0f3d8a3f6b73cdf94fa372bd0f6183bec1aa7f168766d0a7812d84294126",
+      "normalized_diff_lines": 9,
+      "implementation_identical_after_naming": false
+    },
+    {
+      "original": "Llm/OpenAiProvider.cpp",
+      "independent": "src/Llm/CommanderOpenAiProvider.cpp",
+      "original_sha256": "291a96c5b5397c4acd6930bd7fa69bbde0026e072763fe24a9792b945d0b7f93",
+      "normalized_diff_lines": 12,
+      "implementation_identical_after_naming": true
+    },
+    {
+      "original": "Llm/OpenAiProvider.h",
+      "independent": "src/Llm/CommanderOpenAiProvider.h",
+      "original_sha256": "0365b630bd233c9e62f18ebd800bca277bc0debce4ff4b14908dea3dd0197562",
+      "normalized_diff_lines": 9,
+      "implementation_identical_after_naming": false
+    },
+    {
+      "original": "LlmBotsConfig.cpp",
+      "independent": "src/CommanderLlmBotsConfig.cpp",
+      "original_sha256": "341abf37f1cd996604f930f610167fd742fc4c560463e5031f4cdddcb4f151c9",
+      "normalized_diff_lines": 102,
+      "implementation_identical_after_naming": false
+    },
+    {
+      "original": "LlmBotsConfig.h",
+      "independent": "src/CommanderLlmBotsConfig.h",
+      "original_sha256": "8a3fff6bda3b8239c4dbe14610b19c5964193c0f3fb7f8b7af1d85a43dd6162a",
+      "normalized_diff_lines": 17,
+      "implementation_identical_after_naming": false
+    },
+    {
+      "original": "Script/LlmBotsModule.cpp",
+      "independent": "src/Script/CommanderLlmBotsModule.cpp",
+      "original_sha256": "66475ce544fd3473e1192240ab86b751034a0c503ca3ee8f6d811cf534be578a",
+      "normalized_diff_lines": 165,
+      "implementation_identical_after_naming": false
+    },
+    {
+      "original": "Script/LlmBotsModule.h",
+      "independent": "src/Script/CommanderLlmBotsModule.h",
+      "original_sha256": "44c12110944b0244b8721c731dc2ee50cf722faf0e9eb981b9f572fe3bb6ad3f",
+      "normalized_diff_lines": 37,
+      "implementation_identical_after_naming": false
+    },
+    {
+      "original": "Script/LlmBotsScript.cpp",
+      "independent": "src/Script/CommanderLlmBotsScript.cpp",
+      "original_sha256": "53b295eea016f03f999abb84b9a191dc3d3c7a49868ef0c943cdca72c43a1310",
+      "normalized_diff_lines": 28,
+      "implementation_identical_after_naming": false
+    }
+  ]
+}

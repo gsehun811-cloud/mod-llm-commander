@@ -1,0 +1,75 @@
+# mod-llm-commander. Copy to mod_llm_commander.conf in the core's module config directory.
+# Restart after changes. The .llmbot reload command reloads roster/personas only.
+LlmBots.Enable = 0
+# Do not install alongside Playerbots with embedded LlmBots scripts.
+LlmBots.Provider = openai
+
+# Only this Playerbot may execute action tools for the authorized human account.
+# AccountId=0 denies actions. Use the character's normalized in-game name.
+LlmBots.Commander.Name = CM
+LlmBots.Commander.AccountId = 0
+
+# HTTPS base endpoint, without /v1/responses. Model IDs are selected by the operator.
+# Prefer process environment LLM_COMMANDER_OPENAI_API_KEY instead of a key in this file.
+LlmBots.Openai.Endpoint = https://api.openai.com
+LlmBots.Openai.ApiKey = ""
+LlmBots.Openai.ModelFast = ""
+LlmBots.Openai.ModelThink = ""
+LlmBots.Openai.TimeoutMs = 30000
+# Optional trusted PEM bundle: process environment LLM_COMMANDER_CA_FILE (absolute path).
+
+# Optional Foundry conversation provider; action tool calling is not implemented for Foundry.
+# Prefer process environment LLM_COMMANDER_FOUNDRY_API_KEY.
+LlmBots.Foundry.Endpoint = https://YOUR-RESOURCE.openai.azure.com
+LlmBots.Foundry.ApiKey = ""
+LlmBots.Foundry.DeploymentFast = gpt-4.1-mini
+LlmBots.Foundry.DeploymentThink = gpt-4.1
+LlmBots.Foundry.TimeoutMs = 30000
+
+# Mock generates canned dialogue without API/network traffic; no action tools.
+LlmBots.Mock.FailChance = 0
+LlmBots.WorkerThreads = 3
+# Token bucket: at most this initial burst, then proportional refill per minute.
+# Zero disables the respective rate/token limit.
+LlmBots.MaxCallsPerMinute = 20
+# Soft one-hour token threshold: already running calls can exceed it. Not a currency cap.
+LlmBots.MaxTokensPerHour = 600000
+LlmBots.MaxRosterSize = 20
+# Retained original metadata; does not create accounts or select roster characters.
+LlmBots.BotAccount = llmbots
+LlmBots.Social.CooldownSec = 20
+# Original 300-second narrative cadence; zero disables it. Ordinary bots never apply LLM strategy toggles.
+LlmBots.Plan.IntervalSec = 300
+LlmBots.Conversation.MaxTurns = 4
+LlmBots.Chronicler.Name = ""
+LlmBots.Chronicler.DigestSec = 60
+
+# Migration-only aliases: existing standalone installations use these keys.
+# New configurations should use only the original LlmBots keys above.
+# @legacy@ means use the LlmBots value above. A real value (including 0 or empty) wins.
+# Do not replace these markers unless overriding that particular option.
+LlmCommander.Enable = @legacy@
+LlmCommander.Provider = @legacy@
+LlmCommander.Commander.Name = @legacy@
+LlmCommander.Commander.AccountId = @legacy@
+LlmCommander.Openai.Endpoint = @legacy@
+LlmCommander.Openai.ApiKey = @legacy@
+LlmCommander.Openai.ModelFast = @legacy@
+LlmCommander.Openai.ModelThink = @legacy@
+LlmCommander.Openai.TimeoutMs = @legacy@
+LlmCommander.Foundry.Endpoint = @legacy@
+LlmCommander.Foundry.ApiKey = @legacy@
+LlmCommander.Foundry.DeploymentFast = @legacy@
+LlmCommander.Foundry.DeploymentThink = @legacy@
+LlmCommander.Foundry.TimeoutMs = @legacy@
+LlmCommander.Mock.FailChance = @legacy@
+LlmCommander.WorkerThreads = @legacy@
+LlmCommander.MaxCallsPerMinute = @legacy@
+LlmCommander.MaxTokensPerHour = @legacy@
+LlmCommander.MaxRosterSize = @legacy@
+LlmCommander.BotAccount = @legacy@
+LlmCommander.Social.CooldownSec = @legacy@
+LlmCommander.Plan.IntervalSec = @legacy@
+LlmCommander.Conversation.MaxTurns = @legacy@
+LlmCommander.Chronicler.Name = @legacy@
+LlmCommander.Chronicler.DigestSec = @legacy@

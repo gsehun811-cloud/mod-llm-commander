@@ -1,0 +1,123 @@
+/* Modified for standalone mod-llm-commander; compatibility audit 2026-11-03. */
+/*
+ * Modified distribution: mod-playerbots-llm-commander.
+ * This file differs from bigr00/mod-llm-playerbots c0ba652.
+ * Modified version published on 2026-10-01.
+ * Modification notice added on 2026-10-01.
+ * Publication date does not identify every historical edit date.
+ * Original copyright and license notices remain in effect.
+ */
+/*
+ * This file is part of the LLM bots feature of mod-playerbots (AzerothCore).
+ *
+ * The module facade. Owns the Llm core, the registry, the brains, the event
+ * bus and the chronicler, and exposes the entry points the script hooks call:
+ *
+ *   - OnWorldTick:      world thread - drains completions, ticks brains and logs budget stats.
+ *   - OnChat*:          chat events from our PlayerScript.
+ *   - OnPlayerEvent*:   died / level-up / loot / duel.
+ *   - command handlers: .llmbot
+ */
+
+#ifndef LLMC_LLM_BOTS_MODULE_H
+#define LLMC_LLM_BOTS_MODULE_H
+
+#include "CommanderLlmBotBrain.h"
+#include "CommanderLlmTypes.h"
+
+#include "CommanderChroniclerBot.h"
+#include "CommanderLlmBotRegistry.h"
+#include "CommanderLlmConversation.h"
+#include "CommanderLlmEventBus.h"
+
+#include "DatabaseEnv.h"
+#include "ObjectGuid.h"
+
+#include <cstdint>
+#include <atomic>
+#include <map>
+#include <memory>
+#include <mutex>
+#include <string>
+
+class Player;
+class Item;
+
+namespace LlmCommander
+{
+
+class LlmBudget;
+class LlmClient;
+
+class LlmCommanderModule
+{
+public:
+    static LlmCommanderModule* instance();
+
+    // ---- lifecycle (module loader) ----
+    void Initialize();
+    void Shutdown();
+
+    // ---- world thread ----
+    void OnWorldTick(uint32_t diff);
+    void ReloadRoster();
+
+    // Applies the loaded roster (world thread, from the query processor).
+    // Exposed for the unit-test harness.
+    void OnRosterQueries(QueryResult rosterResult, QueryResult personaResult);
+
+    // ---- event hooks (map or world thread) ----
+    void OnPlayerLogin(Player* player);
+    void OnPlayerLogout(Player* player);
+    void OnWhisperToRosterBot(Player* sender, Player* bot, std::string const& msg);
+    void OnSayOrYellNear(Player* sender, std::string const& msg, bool yell);
+    void OnBotJustDied(Player* bot);
+    void OnBotLevelUp(Player* bot);
+    void OnBotLoot(Player* bot, Item* item);
+    void OnDuelRequest(Player* target, Player* challenger);
+
+    // ---- commands ----
+    void CmdAdd(Player* gm, std::string const& name, std::string const& persona);
+    void CmdRemove(Player* gm, std::string const& name);
+    void CmdPersona(Player* gm, std::string const& name, std::string const& persona);
+    void CmdStats(Player* gm);
+    void CmdSay(Player* gm, std::string const& name, std::string const& prompt);
+    void CmdGoal(Player* gm, std::string const& name);
+    void CmdPause(Player* gm, bool paused);
+
+    bool Enabled() const { return m_enabled; }
+    bool Paused() const { return m_paused; }
+
+    LlmBotRegistry& Registry() { return m_registry; }
+
+private:
+    void EnsureBotsSpawned();
+    void ApplyMemoryForGuid(ObjectGuid guid, LlmBotBrain* brain);
+    void BroadcastToGm(Player* gm, std::string const& text);
+
+    LlmBotRegistry m_registry;
+    LlmEventBus m_bus;
+    LlmConversationManager m_conversations;
+    LlmChatLog m_chatLog;
+
+    std::unique_ptr<LlmBudget> m_budget;
+    std::unique_ptr<LlmClient> m_client;
+
+    // unique_ptr: LlmBotBrain holds a mutex + atomics (not movable), and the
+    // roster is rebuilt wholesale on reload.
+    std::map<ObjectGuid, std::unique_ptr<LlmBotBrain>> m_brains; // keyed by bot guid
+    std::unique_ptr<ChroniclerBot> m_chronicler;
+    ObjectGuid m_chroniclerGuid;
+
+    std::atomic<bool> m_enabled = false;
+    std::atomic<bool> m_paused = false;
+    uint32_t m_spawnDelayMs = 60000;
+    uint32_t m_watchdogAccumMs = 0;
+    uint32_t m_statsAccumMs = 0;
+};
+
+#define sLlmCommanderModule LlmCommanderModule::instance()
+
+} // namespace LlmCommander
+
+#endif // LLM_BOTS_MODULE_H

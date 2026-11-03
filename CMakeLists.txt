@@ -1,0 +1,12 @@
+# AzerothCore collects src automatically; the late hook configures its actual target.
+cmake_minimum_required(VERSION 3.16)
+if("${MODULE_MOD-LLM-COMMANDER}" STREQUAL "disabled" OR MODULES STREQUAL "none")
+  return()
+endif()
+if(CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
+  message(FATAL_ERROR "Place mod-llm-commander in AzerothCore/modules and configure AzerothCore.")
+endif()
+file(READ "${CMAKE_SOURCE_DIR}/modules/CMakeLists.txt" LLMC_CORE_MODULE_LOADER)
+if(NOT LLMC_CORE_MODULE_LOADER MATCHES "SOURCE_MODULE.*SOURCE_MODULE.*cmake")
+  message(FATAL_ERROR "Unsupported AzerothCore module loader: per-module late CMake hooks are required.")
+endif()

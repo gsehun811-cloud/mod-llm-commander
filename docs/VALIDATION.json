@@ -1,0 +1,30 @@
+{
+  "source_revision": "0.1.2-audit",
+  "source_audit_date": "2026-11-03",
+  "current_revision": {
+    "cmake_configured": false,
+    "compiled": false,
+    "server_started": false,
+    "database_connected": false,
+    "sql_executed": false,
+    "api_called": false,
+    "checks": "source comparison and codestyle only",
+    "source_files_compared": 38,
+    "commands_equal": 10,
+    "tool_definitions_equal": 16,
+    "legacy_keys_and_code_defaults_equal": 25,
+    "original_source_hashes_unchanged": 38,
+    "cpp_codestyle": "passed",
+    "sql_lint": "isolated checks: 7 pre-existing INSERT IGNORE/no-DELETE findings; remaining executed checks passed; full repository linter not run",
+    "sql_statements_changed": false,
+    "secret_or_artifact_candidate_scan": "no candidates; not a guarantee for future staged files",
+    "agenda_policy": "ordinary bot strategy changes blocked; original Commander manual goal retained"
+  },
+  "historical_0_1_1": {
+    "official_core_sha": "93333d6a9eb00fdf0179adde30da3c17618207d6",
+    "official_playerbots_sha": "05a1f6fceb8a32aa879b13f5f48934c6e46a774c",
+    "static_worldserver_build": "passed on 2026-11-02; does not validate current changes",
+    "offline_ctest": "1/1 historical; not rerun",
+    "toolchain": "Visual Studio Community 2026 / MSVC 19.51 / Ninja / x64 / Release / static modules"
+  }
+}

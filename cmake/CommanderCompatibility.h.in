@@ -1,0 +1,2 @@
+#pragma once
+#define LLMC_LOOKUP_MANAGER @LLMC_LOOKUP_MANAGER@
