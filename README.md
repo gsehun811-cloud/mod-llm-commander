@@ -92,3 +92,12 @@ or prove in-game behavior. C++ offline test sources remain in `tests/` for a lat
 
 [한국어 설치 안내](docs/INSTALL_KO.md) · [호환성 감사](docs/COMPATIBILITY_AUDIT_KO.md) ·
 [문제 해결](docs/TROUBLESHOOTING_KO.md) · [배포 파일 목록](FILELIST.txt) · [Credits](AUTHORS.md)
+
+## Windows setup tools (development branch)
+
+The Windows CMake build/install rules also ship `LLM-SETUP.bat`, `LLM-SETUP.ps1` and
+[the setup guide](tools/windows/LLM-SETUP-KO.md) beside worldserver. No alternate binary deployment
+system is added. The helper preserves existing settings by default, accepts an OpenAI key through
+hidden input, and guides the user through the existing native account/password/key commands.
+It does not connect to a database, create/change accounts, start servers, download sources or build.
+The scripts were tested in isolated fixtures; the new CMake build/install integration has not been run.

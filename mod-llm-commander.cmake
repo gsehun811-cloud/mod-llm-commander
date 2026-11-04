@@ -37,3 +37,29 @@ message(STATUS "LLM Commander: static; manager lookup=${LLMC_LOOKUP_MANAGER}. In
 
 # Ship the standalone schema without connecting to or modifying a database.
 install(DIRECTORY "${LLMC_ROOT}/data/sql/" DESTINATION "sql/mod-llm-commander")
+
+# Add local setup tools to the existing Windows build/install layout.
+# No server binary, active configuration or database is copied/changed by this target.
+if(WIN32 AND TARGET worldserver)
+  set(LLMC_SETUP_FILES
+    "${LLMC_ROOT}/tools/windows/LLM-SETUP.bat"
+    "${LLMC_ROOT}/tools/windows/LLM-SETUP.ps1"
+    "${LLMC_ROOT}/tools/windows/LLM-SETUP-KO.md")
+  # The inspected core sets this to <build>/bin for MSVC and MinGW.
+  # Multi-config generators add the configuration directory, as worldserver does.
+  set(LLMC_SETUP_OUTPUT "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
+  if(NOT LLMC_SETUP_OUTPUT)
+    message(FATAL_ERROR "Windows setup tools require the core runtime output directory.")
+  endif()
+  if(CMAKE_CONFIGURATION_TYPES)
+    string(APPEND LLMC_SETUP_OUTPUT "/$<CONFIG>")
+  endif()
+  add_custom_target(llm_commander_setup_tools ALL
+    COMMAND "${CMAKE_COMMAND}" -E make_directory "${LLMC_SETUP_OUTPUT}"
+    COMMAND "${CMAKE_COMMAND}" -E copy_if_different ${LLMC_SETUP_FILES} "${LLMC_SETUP_OUTPUT}"
+    DEPENDS ${LLMC_SETUP_FILES}
+    COMMENT "Copying LLM Commander local setup tools"
+    VERBATIM)
+  add_dependencies(worldserver llm_commander_setup_tools)
+  install(FILES ${LLMC_SETUP_FILES} DESTINATION ".")
+endif()

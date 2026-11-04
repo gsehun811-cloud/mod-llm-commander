@@ -69,4 +69,8 @@ src/Script/CommanderLlmBotsModule.h
 src/Script/CommanderLlmBotsScript.cpp
 tests/CMakeLists.txt
 tests/commander_offline_tests.cpp
+tests/test_windows_setup.ps1
 tools/audit_sources.py
+tools/windows/LLM-SETUP-KO.md
+tools/windows/LLM-SETUP.bat
+tools/windows/LLM-SETUP.ps1
