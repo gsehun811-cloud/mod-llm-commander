@@ -9,12 +9,12 @@ on the official source pair listed in [Compatibility](docs/COMPATIBILITY.md). Th
 validate these changes. This revision was inspected without configuring CMake, building, starting a
 server, updating a DB or calling an external API.
 
-## 한국어 사용자 가이드 / Korean user guide
+## User guides / 사용자 설명서
 
-**[CM 설정부터 일반 LLM 봇·기본 페르소나 5종·사용자 지정 페르소나·Windows OpenAI API 환경변수 설정까지 자세히 보기](docs/USER_GUIDE_KO.md)**
-
-- [Windows에서 CM 계정 연결 및 API/TLS 문제 해결](docs/WINDOWS_CM_SETUP_KO.md)
-- [한국어 설치 및 빌드 안내](docs/INSTALL_KO.md)
+- **[English user guide — Commander setup, ordinary LLM bots, personas, Windows API keys and troubleshooting](docs/USER_GUIDE_EN.md)**
+- **[한국어 사용자 설명서 — CM 설정, 일반 LLM 봇, 페르소나, Windows 환경변수 및 문제 해결](docs/USER_GUIDE_KO.md)**
+- [Windows CM setup and TLS troubleshooting / Windows CM 연결 및 TLS 문제 해결](docs/WINDOWS_CM_SETUP_KO.md)
+- [한국어 설치 및 빌드 안내 / Korean installation notes](docs/INSTALL_KO.md)
 
 ## Install
 
